@@ -1,9 +1,15 @@
 import { styled } from "..";
 export const HomeContainer = styled("main", {
+  minHeight: "100vh",
+  width: "100vw",
+});
+
+export const SliderContainer = styled("div", {
   display: "flex",
   width: "100%",
   marginLeft: "auto",
-  minHeight: 656,
+  padding: 20,
+  minHeight: 600,
 });
 
 export const Product = styled("div", {
