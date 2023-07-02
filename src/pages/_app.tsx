@@ -5,7 +5,9 @@ import { Basket, X } from "@phosphor-icons/react";
 import * as Dialog from "@radix-ui/react-dialog";
 
 import logoImg from "../assets/logoWhite.png";
-import shirtTeste from "../assets/shirts/1.png";
+import shirtTeste1 from "../assets/shirts/1.png";
+import shirtTeste2 from "../assets/shirts/2.png";
+import shirtTeste3 from "../assets/shirts/3.png";
 import { globalStyles } from "../styles/global";
 import { Container, Header } from "../styles/pages/app";
 import {
@@ -31,7 +33,35 @@ import {
 
 globalStyles();
 
+interface ProductProps {
+  id: number;
+  imageUrl: any;
+  name: string;
+  price: number;
+}
+
 export default function App({ Component, pageProps }: AppProps) {
+  const arrayProducts: ProductProps[] = [
+    {
+      id: 0,
+      imageUrl: shirtTeste1,
+      name: "Camiseta Beyond the Limits",
+      price: 79.9,
+    },
+    {
+      id: 1,
+      imageUrl: shirtTeste2,
+      name: "Camiseta TESTE 2",
+      price: 59.9,
+    },
+    {
+      id: 2,
+      imageUrl: shirtTeste3,
+      name: "Camiseta TESTE 3",
+      price: 99.9,
+    },
+  ];
+
   return (
     <Container>
       <Dialog.Root>
@@ -51,6 +81,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
 
         <Dialog.Portal>
+          <Dialog.Overlay />
           <DialogContent>
             <div>
               <CloseContainer>
@@ -61,23 +92,32 @@ export default function App({ Component, pageProps }: AppProps) {
 
               <DialogTitle>Sacola de compras</DialogTitle>
 
-              <ProductsList>
-                <Product>
-                  <ImageContainer>
-                    <Image src={shirtTeste} width={96} height={96} alt="" />
-                  </ImageContainer>
+              {arrayProducts && (
+                <ProductsList>
+                  {arrayProducts.map((product: ProductProps) => (
+                    <Product key={product.id}>
+                      <ImageContainer>
+                        <Image
+                          src={product.imageUrl}
+                          width={96}
+                          height={96}
+                          alt=""
+                        />
+                      </ImageContainer>
 
-                  <ProductDetails>
-                    <div>
-                      <ProductName>Camiseta Beyond the Limits</ProductName>
-                      <ProductPrice>R$ 79,90</ProductPrice>
-                    </div>
-                    <div>
-                      <ProductRemove type="button">Remover</ProductRemove>
-                    </div>
-                  </ProductDetails>
-                </Product>
-              </ProductsList>
+                      <ProductDetails>
+                        <div>
+                          <ProductName>{product.name}</ProductName>
+                          <ProductPrice>R$ {product.price}</ProductPrice>
+                        </div>
+                        <div>
+                          <ProductRemove type="button">Remover</ProductRemove>
+                        </div>
+                      </ProductDetails>
+                    </Product>
+                  ))}
+                </ProductsList>
+              )}
             </div>
 
             <div>

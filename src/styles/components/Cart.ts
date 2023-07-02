@@ -54,7 +54,6 @@ export const DialogContent = styled(Dialog.Content, {
   boxShadow: "-4px 0px 30px 0px rgba(0, 0, 0, 0.80)",
   animation: `${AnimationContentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
   "&:focus": { outline: "none" },
-  // overflowY: "auto",
 });
 
 export const CloseContainer = styled("div", {
@@ -77,7 +76,7 @@ export const DialogTitle = styled(Dialog.Title, {
 export const ProductsList = styled("div", {
   display: "flex",
   flexDirection: "column",
-  gap: "1.45rem",
+  gap: "1rem",
   height: "calc(100vh - 400px)",
   overflowY: "auto",
 });
