@@ -4,7 +4,13 @@ import Image from "next/image";
 
 import logoImg from "../assets/logoWhite.png";
 import { globalStyles } from "../styles/global";
-import { Container, Header } from "../styles/pages/app";
+import {
+  ButtonCart,
+  Container,
+  Header,
+  QuantityNotification,
+} from "../styles/pages/app";
+import { Basket } from "@phosphor-icons/react";
 
 globalStyles();
 
@@ -15,6 +21,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <Link href="/">
           <Image src={logoImg} width={150} alt="" />
         </Link>
+
+        <ButtonCart type="button">
+          <Basket size={24} color="white" />
+          <QuantityNotification>1</QuantityNotification>
+        </ButtonCart>
       </Header>
 
       <Component {...pageProps} />
