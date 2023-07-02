@@ -35,7 +35,7 @@ export const Product = styled("div", {
     "@media (min-width: 960px)": {
       transform: "translateY(110%)",
       opacity: 0,
-      transition: "all 0.2s ease-in-out",
+      transition: "all 0.35s ease-in-out",
     },
     position: "absolute",
     bottom: "0.25rem",
