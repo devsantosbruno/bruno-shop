@@ -1,4 +1,5 @@
 import { styled } from "..";
+
 export const HomeContainer = styled("main", {
   minHeight: "100vh",
   width: "100vw",
@@ -8,7 +9,6 @@ export const SliderContainer = styled("div", {
   display: "flex",
   width: "100%",
   marginLeft: "auto",
-  padding: 20,
   minHeight: 600,
 });
 
@@ -32,6 +32,11 @@ export const Product = styled("div", {
   },
 
   footer: {
+    "@media (min-width: 960px)": {
+      transform: "translateY(110%)",
+      opacity: 0,
+      transition: "all 0.2s ease-in-out",
+    },
     position: "absolute",
     bottom: "0.25rem",
     left: "0.25rem",
@@ -46,10 +51,6 @@ export const Product = styled("div", {
 
     background: "rgba(0,0,0, 0.6)",
 
-    transform: "translateY(110%)",
-    opacity: 0,
-    transition: "all 0.2s ease-in-out",
-
     strong: {
       fontSize: "$lg",
       color: "$gray100",
@@ -62,10 +63,12 @@ export const Product = styled("div", {
     },
   },
 
-  "&:hover": {
-    footer: {
-      transform: "translateY(0%)",
-      opacity: 1,
+  "@media (min-width: 960px)": {
+    "&:hover": {
+      footer: {
+        transform: "translateY(0%)",
+        opacity: 1,
+      },
     },
   },
 });

@@ -24,14 +24,14 @@ export default function Home({ products }: HomeProps) {
       "(min-width: 320px)": {
         slides: {
           origin: "center",
-          perView: 1,
+          perView: 1.1,
           spacing: 12,
         },
       },
       "(min-width: 600px)": {
         slides: {
           origin: "center",
-          perView: 1,
+          perView: 1.25,
           spacing: 12,
         },
       },
