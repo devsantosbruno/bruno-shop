@@ -51,9 +51,7 @@ export default function Product({ product }: ProductProps) {
           <p>{product.description}</p>
 
           <button disabled={isProductAlreadyInCart} onClick={handleBuyProduct}>
-            {isProductAlreadyInCart
-              ? "Produto no carrinho"
-              : "Colocar na sacola"}
+            {isProductAlreadyInCart ? "Product on cart" : "Buy"}
           </button>
         </ProductDetails>
       </ProductContainer>
@@ -85,9 +83,9 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         id: product.id,
         name: product.name,
         imageUrl: product.images[0],
-        price: new Intl.NumberFormat("pt-BR", {
+        price: new Intl.NumberFormat("en-US", {
           style: "currency",
-          currency: "BRL",
+          currency: "USD",
         }).format(price.unit_amount! / 100),
         priceNumber: price.unit_amount,
         description: product.description,

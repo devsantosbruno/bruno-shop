@@ -26,13 +26,13 @@ export default function Success({
   return (
     <>
       <Head>
-        <title>Compra efetuada | Ignite Shop</title>
+        <title>Purchase success | Bruno Shop</title>
 
         <meta name="robots" content="noindex" />
       </Head>
 
       <SuccessContainer>
-        <h1>Compra efetuada!</h1>
+        <h1>Purchase success!</h1>
 
         <ImageSection>
           {productsImages.map((image, index) => {
@@ -45,12 +45,12 @@ export default function Success({
         </ImageSection>
 
         <p>
-          Uhuul <strong>{customerName}</strong>, sua compra de{" "}
-          {productsImages.length} camiseta{productsImages.length > 1 && "s"} já
-          está a caminho da sua casa.
+          Congratulations! <strong>{customerName}</strong>, Your purchase of{" "}
+          {productsImages.length} shirt{productsImages.length > 1 && "s"} it`s
+          already on its way to your house.
         </p>
 
-        <Link href="/">Voltar ao catálogo</Link>
+        <Link href="/">Back to Products</Link>
       </SuccessContainer>
     </>
   );

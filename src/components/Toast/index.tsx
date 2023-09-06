@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 export const addCartToast = () =>
-  toast.success("Produto adicionado ao carrinho", {
+  toast.success("Product added to cart", {
     autoClose: 1500,
     pauseOnHover: false,
     closeOnClick: true,
@@ -9,7 +9,7 @@ export const addCartToast = () =>
   });
 
 export const removeCartToast = () =>
-  toast.success("Produto removido do carrinho", {
+  toast.success("Product removed from cart", {
     autoClose: 1500,
     pauseOnHover: false,
     closeOnClick: true,

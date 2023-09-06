@@ -16,9 +16,9 @@ export function ContentCart() {
     useState(false);
   const { cartItems, removeCart, cartTotalPrice } = useCart();
 
-  const formattedTotalPrice = new Intl.NumberFormat("pt-BR", {
+  const formattedTotalPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "BRL",
+    currency: "USD",
   }).format(cartTotalPrice / 100);
 
   async function handleBuyProduct() {
@@ -35,7 +35,7 @@ export function ContentCart() {
     } catch (err) {
       setIsCreatingCheckoutSession(false);
 
-      alert("Falha ao redirecionar ao checkout!");
+      alert("Redirect to cart error");
     }
   }
 
@@ -51,7 +51,7 @@ export function ContentCart() {
               <ProductInfo>
                 <span>{cartItem.name}</span>
                 <strong>{cartItem.price}</strong>
-                <button onClick={() => removeCart(cartItem.id)}>Remover</button>
+                <button onClick={() => removeCart(cartItem.id)}>Remove</button>
               </ProductInfo>
             </ProductCart>
           );
@@ -60,15 +60,15 @@ export function ContentCart() {
 
       <ProductsResume>
         <div>
-          <span>Quantidade</span>
+          <span>Quantity</span>
           <span>{cartItems.length}</span>
         </div>
         <div>
-          <strong>Valor Total</strong>
+          <strong>Total value</strong>
           <strong>{formattedTotalPrice}</strong>
         </div>
         <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>
-          {isCreatingCheckoutSession ? <Spinner /> : "Finalizar compra"}
+          {isCreatingCheckoutSession ? <Spinner /> : "Order"}
         </button>
       </ProductsResume>
     </>

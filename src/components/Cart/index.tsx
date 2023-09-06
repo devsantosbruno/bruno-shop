@@ -30,7 +30,7 @@ export function Cart() {
       <Dialog.Portal>
         <ModalOverlay />
         <ModalContent>
-          <Dialog.Title>Sacola de compras</Dialog.Title>
+          <Dialog.Title>Shopping bag</Dialog.Title>
 
           <ModalClose asChild>
             <X size={24} color="#8D8D99" weight="bold" />
