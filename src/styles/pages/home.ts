@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { styled } from "..";
 
 export const HomeContainer = styled("main", {
@@ -89,4 +90,9 @@ export const Product = styled("div", {
       },
     },
   },
+});
+
+export const LinkToProduct = styled(Link, {
+  position: "absolute",
+  inset: 0,
 });
