@@ -1,21 +1,20 @@
-import { useKeenSlider } from "keen-slider/react";
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import Stripe from "stripe";
-import { stripe } from "../lib/stripe";
-
-import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
 import Link from "next/link";
-import { HomeContainer, Product, SliderContainer } from "../styles/pages/home";
+import { MouseEvent } from "react";
+import { useKeenSlider } from "keen-slider/react";
+import Stripe from "stripe";
+import { stripe } from "../lib/stripe";
+import { ProductProps } from "../contexts/CartContext";
+import { useCart } from "../hooks/useCart";
+
+import { HomeContainer, Product } from "../styles/pages/home";
+import "keen-slider/keen-slider.min.css";
+import { Handbag } from "@phosphor-icons/react";
 
 interface HomeProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-  }[];
+  products: ProductProps[];
 }
 
 export default function Home({ products }: HomeProps) {
@@ -53,28 +52,47 @@ export default function Home({ products }: HomeProps) {
     },
   });
 
+  const { addCart, checkIfAlreadyInCart } = useCart();
+
+  function handleAddCart(
+    event: MouseEvent<HTMLButtonElement>,
+    product: ProductProps
+  ) {
+    event.preventDefault();
+
+    if (checkIfAlreadyInCart(product.id)) return;
+
+    addCart(product);
+  }
+
   return (
     <>
       <Head>
-        <title>Home | Ignite Shop</title>
+        <title>Home | Bruno Shop</title>
       </Head>
 
-      <HomeContainer>
-        <SliderContainer ref={sliderRef} className="keen-slider">
-          {products.map((product) => {
-            return (
-              <Product key={product.id} className="keen-slider__slide">
-                <Link href={`/product/${product.id}`} prefetch={false} />
-                <Image src={product.imageUrl} width={520} height={480} alt="" />
-
-                <footer>
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map((product) => {
+          return (
+            <Product key={product.id} className="keen-slider__slide">
+              <Link href={`/product/${product.id}`} prefetch={false} />
+              <Image src={product.imageUrl} width={520} height={480} alt="" />
+              <footer>
+                <div>
                   <strong>{product.name}</strong>
                   <span>{product.price}</span>
-                </footer>
-              </Product>
-            );
-          })}
-        </SliderContainer>
+                </div>
+
+                <button
+                  onClick={(event) => handleAddCart(event, product)}
+                  disabled={checkIfAlreadyInCart(product.id)}
+                >
+                  <Handbag size={32} color="#FFFFFF" weight="bold" />
+                </button>
+              </footer>
+            </Product>
+          );
+        })}
       </HomeContainer>
     </>
   );
@@ -95,7 +113,9 @@ export const getStaticProps: GetStaticProps = async () => {
       price: new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
-      }).format(price.unit_amount! / 100),
+      }).format(price.unit_amount / 100),
+      priceNumber: price.unit_amount,
+      defaultPriceId: price.id,
     };
   });
 

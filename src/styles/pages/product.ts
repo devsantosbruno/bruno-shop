@@ -1,46 +1,47 @@
 import { styled } from "..";
 
-export const Main = styled("main", {
-  minHeight: "80vh",
-  width: "100vw",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "3rem 0",
-});
-
-export const ProductContainer = styled("div", {
+export const ProductContainer = styled("main", {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
+  gridTemplateColumns: "1fr 1fr",
   alignItems: "stretch",
   gap: "4rem",
-
-  maxWidth: "80vw",
+  maxWidth: 1180,
   margin: "0 auto",
+
+  "@md": {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+
+  "@container": {
+    padding: "1rem",
+  },
 });
 
 export const ImageContainer = styled("div", {
-  width: "100%",
-  background: "linear-gradient(180deg, #1ea483 0%, #7465d4 100%)",
-  borderRadius: 8,
-  padding: "0.25rem",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  width: "100%",
+  maxWidth: 576,
+  height: 656,
+  background: "linear-gradient(180deg, #1ea483 0%, #7465e4 100%)",
+  borderRadius: 8,
+  padding: "0.25rem",
+
+  "@md": {
+    height: 400,
+  },
 
   img: {
     objectFit: "cover",
   },
 });
 
-export const ButtonBuy = styled("button", {
-  marginTop: 120,
-});
-
 export const ProductDetails = styled("div", {
   display: "flex",
   flexDirection: "column",
-  gap: "4rem",
 
   h1: {
     fontSize: "$2xl",
@@ -63,19 +64,22 @@ export const ProductDetails = styled("div", {
 
   button: {
     marginTop: "auto",
-    background: "$green500",
+    backgroundColor: "$green500",
     border: 0,
     color: "$white",
     borderRadius: 8,
     padding: "1.25rem",
-    fontWeight: "bold",
     cursor: "pointer",
+    fontWeight: "bold",
     fontSize: "$md",
-    transition: "background .35s",
+    transition: "background-color 0.2s ease-in-out",
+
+    "@md": {
+      marginTop: "1.5rem",
+    },
 
     "&:not(:disabled):hover": {
-      background: "$green300",
-      transition: "background .35s",
+      backgroundColor: "$green300",
     },
 
     "&:disabled": {
