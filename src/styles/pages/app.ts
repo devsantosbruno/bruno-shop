@@ -3,16 +3,7 @@ import { styled } from "..";
 export const Container = styled("div", {
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
+  alignItems: "center",
   justifyContent: "center",
   minHeight: "100vh",
-});
-
-export const Header = styled("header", {
-  padding: "2rem 0",
-  width: "80vw",
-  margin: "0 auto",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
 });
