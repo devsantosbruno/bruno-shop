@@ -61,13 +61,6 @@ export default function Product({ product }: ProductProps) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [{ params: { id: "prod_MdhKzTBghl5KXo" } }],
-    fallback: "blocking",
-  };
-};
-
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   params,
 }) => {
