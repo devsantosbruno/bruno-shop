@@ -62,14 +62,13 @@ export const ModalTitle = styled(Dialog.Title, {
 });
 
 export const ModalContent = styled(Dialog.Content, {
-  position: "absolute",
+  position: "fixed",
   top: 0,
-  right: "-100%",
+  bottom: 0,
+  right: 0,
   padding: "24px",
   width: "100%",
   maxWidth: "480px",
-  height: "100%",
-  minHeight: "100vh",
   background: "$gray800",
   zIndex: 999,
   border: "none",
