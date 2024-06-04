@@ -66,7 +66,7 @@ export const ModalContent = styled(Dialog.Content, {
   top: 0,
   bottom: 0,
   right: 0,
-  padding: "24px",
+  padding: "45px 24px",
   width: "100%",
   maxWidth: "480px",
   background: "$gray800",
@@ -88,7 +88,7 @@ export const ModalDescription = styled(Dialog.Description, {
 
 export const ModalClose = styled(Dialog.Close, {
   position: "absolute",
-  top: "24px",
+  top: "45px",
   right: "24px",
   cursor: "pointer",
 });
