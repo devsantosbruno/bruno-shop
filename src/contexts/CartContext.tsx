@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useState } from "react";
-import { addCartToast, removeCartToast } from "../components/Toast";
+import { createContext, ReactNode, useState } from 'react';
+import { addCartToast, removeCartToast } from '../components/Toast';
 export interface ProductProps {
   id: string;
   name: string;
@@ -12,10 +12,12 @@ export interface ProductProps {
 
 interface CartContextProps {
   cartItems: ProductProps[];
+  cartTotalPrice: number;
   addCart: (product: ProductProps) => void;
   removeCart: (productId: string) => void;
   checkIfAlreadyInCart: (productId: string) => boolean;
-  cartTotalPrice: number;
+  addProductToStore: (productStore: ProductProps) => void;
+  productStore: ProductProps;
 }
 
 interface CartContextProviderProps {
@@ -25,6 +27,15 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextProps);
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
+  const [productStore, setProductStore] = useState<ProductProps>({
+    id: '',
+    name: '',
+    imageUrl: '',
+    price: '',
+    priceNumber: 0,
+    description: '',
+    defaultPriceId: '',
+  });
   const [cartItems, setCartItems] = useState<ProductProps[]>([]);
 
   const cartTotalPrice = cartItems.reduce((total, product) => {
@@ -46,6 +57,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     removeCartToast();
   }
 
+  function addProductToStore(productState: ProductProps) {
+    setProductStore(productState);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -54,6 +69,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         removeCart,
         checkIfAlreadyInCart,
         cartTotalPrice,
+        addProductToStore,
+        productStore,
       }}
     >
       {children}

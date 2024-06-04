@@ -1,98 +1,47 @@
-import { GetStaticPaths, GetStaticProps } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Stripe from "stripe";
-import { stripe } from "../../lib/stripe";
+import Head from 'next/head';
+import Image from 'next/image';
 
-import { useCart } from "../../hooks/useCart";
+import { useCart } from '../../hooks/useCart';
 import {
   ImageContainer,
   ProductContainer,
   ProductDetails,
-} from "../../styles/pages/product";
+} from '../../styles/pages/product';
 
-interface ProductProps {
-  product: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    priceNumber: number;
-    description: string;
-    defaultPriceId: string;
-  };
-}
+export default function Product() {
+  const { addCart, checkIfAlreadyInCart, productStore } = useCart();
+  const { id, name, imageUrl, price, description } = productStore;
 
-export default function Product({ product }: ProductProps) {
-  console.log("productproduct ==>", product);
-  const { addCart, checkIfAlreadyInCart } = useCart();
-  const isProductAlreadyInCart = checkIfAlreadyInCart(product.id);
+  const isProductAlreadyInCart = checkIfAlreadyInCart(id);
 
   function handleBuyProduct() {
-    if (checkIfAlreadyInCart(product.id)) return;
-
-    addCart(product);
+    if (!checkIfAlreadyInCart(id)) {
+      addCart(productStore);
+    }
   }
 
   return (
     <>
       <Head>
-        <title>{product.name} | Ignite Shop</title>
+        <title>{name} | Ignite Shop</title>
       </Head>
 
       <ProductContainer>
         <ImageContainer>
-          <Image src={product.imageUrl} width={520} height={480} alt="" />
+          <Image src={imageUrl} width={520} height={480} alt='' />
         </ImageContainer>
 
         <ProductDetails>
-          <h1>{product.name}</h1>
-          <span>{product.price}</span>
+          <h1>{name}</h1>
+          <span>{price}</span>
 
-          <p>{product.description}</p>
+          <p>{description}</p>
 
           <button disabled={isProductAlreadyInCart} onClick={handleBuyProduct}>
-            {isProductAlreadyInCart ? "Product on cart" : "Buy"}
+            {isProductAlreadyInCart ? 'Product on cart' : 'Buy'}
           </button>
         </ProductDetails>
       </ProductContainer>
     </>
   );
 }
-
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-};
-
-export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
-  params,
-}) => {
-  const productId = params?.id;
-
-  const product = await stripe.products.retrieve(productId!, {
-    expand: ["default_price"],
-  });
-
-  const price = product.default_price as Stripe.Price;
-
-  return {
-    props: {
-      product: {
-        id: product.id,
-        name: product.name,
-        imageUrl: product.images[0],
-        price: new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(price.unit_amount! / 100),
-        priceNumber: price.unit_amount,
-        description: product.description,
-        defaultPriceId: price.id,
-      },
-    },
-    revalidate: 60 * 60 * 1, // 1 hour
-  };
-};
