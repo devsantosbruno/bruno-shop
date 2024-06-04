@@ -4,12 +4,12 @@ import Image from "next/image";
 import Stripe from "stripe";
 import { stripe } from "../../lib/stripe";
 
+import { useCart } from "../../hooks/useCart";
 import {
   ImageContainer,
   ProductContainer,
   ProductDetails,
 } from "../../styles/pages/product";
-import { useCart } from "../../hooks/useCart";
 
 interface ProductProps {
   product: {
@@ -24,6 +24,7 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  console.log("productproduct ==>", product);
   const { addCart, checkIfAlreadyInCart } = useCart();
   const isProductAlreadyInCart = checkIfAlreadyInCart(product.id);
 

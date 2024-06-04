@@ -1,23 +1,23 @@
+import { useKeenSlider } from "keen-slider/react";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { MouseEvent } from "react";
-import { useKeenSlider } from "keen-slider/react";
 import Stripe from "stripe";
-import { stripe } from "../lib/stripe";
 import { ProductProps } from "../contexts/CartContext";
 import { useCart } from "../hooks/useCart";
+import { stripe } from "../lib/stripe";
 
-import { HomeContainer, LinkToProduct, Product } from "../styles/pages/home";
-import "keen-slider/keen-slider.min.css";
 import { Handbag } from "@phosphor-icons/react";
+import "keen-slider/keen-slider.min.css";
+import { HomeContainer, LinkToProduct, Product } from "../styles/pages/home";
 
 interface HomeProps {
   products: ProductProps[];
 }
 
 export default function Home({ products }: HomeProps) {
+  console.log("productsproducts ==>", products);
   const [sliderRef] = useKeenSlider({
     mode: "free-snap",
     breakpoints: {
@@ -102,6 +102,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
     expand: ["data.default_price"],
   });
+
+  console.log("responseresponse ==>", response);
 
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price;
