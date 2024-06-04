@@ -1,31 +1,32 @@
-import { useState } from "react";
-import Image from "next/image";
-import axios from "axios";
-import { Spinner } from "../../Spinner";
-import { useCart } from "../../../hooks/useCart";
+import axios from 'axios';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useCart } from '../../../hooks/useCart';
+import { Spinner } from '../../Spinner';
+import { tryAgainToast } from '../../Toast';
 import {
   ProductCart,
   ProductCartWrapper,
   ProductImage,
   ProductInfo,
   ProductsResume,
-} from "./styles";
+} from './styles';
 
 export function ContentCart() {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false);
   const { cartItems, removeCart, cartTotalPrice } = useCart();
 
-  const formattedTotalPrice = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
+  const formattedTotalPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
   }).format(cartTotalPrice / 100);
 
   async function handleBuyProduct() {
     try {
       setIsCreatingCheckoutSession(true);
 
-      const response = await axios.post("/api/checkout", {
+      const response = await axios.post('/api/checkout', {
         products: cartItems,
       });
 
@@ -34,8 +35,7 @@ export function ContentCart() {
       window.location.href = checkoutUrl;
     } catch (err) {
       setIsCreatingCheckoutSession(false);
-
-      alert("Redirect to cart error");
+      tryAgainToast();
     }
   }
 
@@ -46,7 +46,7 @@ export function ContentCart() {
           return (
             <ProductCart key={cartItem.id}>
               <ProductImage>
-                <Image src={cartItem.imageUrl} alt="" width={94} height={94} />
+                <Image src={cartItem.imageUrl} alt='' width={94} height={94} />
               </ProductImage>
               <ProductInfo>
                 <span>{cartItem.name}</span>
@@ -68,7 +68,7 @@ export function ContentCart() {
           <strong>{formattedTotalPrice}</strong>
         </div>
         <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>
-          {isCreatingCheckoutSession ? <Spinner /> : "Order"}
+          {isCreatingCheckoutSession ? <Spinner /> : 'Order'}
         </button>
       </ProductsResume>
     </>
