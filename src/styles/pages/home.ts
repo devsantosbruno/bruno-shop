@@ -23,6 +23,8 @@ export const Product = styled("div", {
   alignItems: "center",
   justifyContent: "center",
   overflow: "hidden",
+  minHeight: "600px",
+  maxHeight: "80vh",
 
   img: {
     objectFit: "cover",
@@ -40,9 +42,11 @@ export const Product = styled("div", {
     backgroundColor: "rgba(0, 0, 0, 0.6)",
     borderRadius: 6,
 
-    transform: "translateY(110%)",
-    opacity: 0,
-    transition: "all 0.2s ease-in-out",
+    "@animations": {
+      transition: "all 0.2s ease-in-out",
+      opacity: 0,
+      transform: "translateY(110%)",
+    },
 
     ">div": {
       display: "flex",
@@ -78,15 +82,11 @@ export const Product = styled("div", {
     },
   },
 
-  "&:hover": {
-    footer: {
-      transform: "translateY(0%)",
-      opacity: 1,
-    },
-
-    "@container": {
+  "@animations": {
+    "&:hover": {
       footer: {
-        opacity: 0,
+        transform: "translateY(0%)",
+        opacity: 1,
       },
     },
   },

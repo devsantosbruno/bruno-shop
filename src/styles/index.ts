@@ -32,6 +32,7 @@ export const {
   media: {
     sm: "(max-width: 500px)",
     md: "(max-width: 768px)",
+    animations: "(min-width: 960px)",
     container: "(max-width: 1180px)",
     notebook: "(max-width: 1366px)",
   },
